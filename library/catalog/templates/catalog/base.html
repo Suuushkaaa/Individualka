@@ -178,6 +178,23 @@ transition: transform 0.1s ease, box-shadow 0.1s ease; /* Быстрая ани�
     {% block content %}
     <!-- Содержимое страницы -->
     {% endblock %}
+    <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.paginator.num_pages > 1 %}
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span class="current">
+            Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Предыдущая &raquo;</a>
+            {% endif %}
+        {% endif %}
+            </span>
+        </div>
 </main>
 
 <footer bg-success text-light class="text-center py-2"> 
