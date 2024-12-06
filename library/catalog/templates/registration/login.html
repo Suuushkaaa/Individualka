@@ -1,0 +1,41 @@
+{% extends "catalog/base.html" %} 
+{% block content %} 
+{% if form.errors %} 
+<p style="color: #4e4e50; font-size: 22px; font-weight: bold;">Ваши имя пользователя и пароль не совпали. 
+Пожалуйста, попробуйте еще раз.</p> 
+{% endif %} 
+{% if next %} 
+{% if user.is_authenticated %} 
+<p style="color: #4e4e50; font-size: 22px; font-weight: bold;"> Вы не имеете доступа к этой странице. 
+Войдите в систему с другими параметрами</p> 
+{% else %} 
+<p style="color: #4e4e50; font-size: 22px; font-weight: bold;"> Войдите в систему, чтобы увидеть эту страницу.</p> 
+{% endif %} 
+{% endif %} 
+<form method="post" action="{% url 'login' %}"> 
+{% csrf_token %} 
+<div> 
+<div> 
+<table style="color: #4e4e50; font-size: 18px; font-weight: bold;"> 
+<tr> 
+<td id="aaa">{{ form.username.label_tag }}</td> 
+<td id="aaa">{{ form.username }}</td> 
+</tr> 
+<tr> 
+<td id="aaa">{{ form.password.label_tag }}</td> 
+<td id="aaa">{{ form.password }}</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<div class="row my-2 text-start"> 
+<div> <input type="submit" value="Вход" style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #6f2232; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"/> 
+<input type="hidden" name="next" value="{{ next }}" /> 
+{# Предполагается, что вы настроили #} 
+{# представление password_reset в своем URLconf#} 
+<p><a href="{% url 'password_reset' %}"> Утерян пароль?</a></p> 
+</div> 
+</div> 
+<div class="col-8"></div> 
+</form> 
+{% endblock %}

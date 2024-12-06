@@ -8,32 +8,16 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 <div class="carousel-inner">
 <div class="carousel-item active">
-<img src="{% static 'images/ai.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
-<div class="carousel-caption d-none d-md-block">
-<h2 class="text-white">Искусственный интеллект</h2>
-<h3 class="text-white">{{rab1}}</h3>
-</div>
+<img src="{% static 'images/1.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
 </div>
 <div class="carousel-item">
-<img src="{% static 'images/road.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
-<div class="carousel-caption d-none d-md-block">
-<h2 class="text-white">Компьютерное зрение</h2>
-<h3 class="text-white">{{rab2}}</h3>
-</div>
+<img src="{% static 'images/2.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
 </div>
 <div class="carousel-item">
-<img src="{% static 'images/art.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
-<div class="carousel-caption d-none d-md-block">
-<h2 class="text-white">Арт объекты</h2>
-<h3 class="text-white">{{rab3}}</h3>
-</div>
+<img src="{% static 'images/3.webp' %}" style="height: 200px;" class="d-block w-100 " alt="image">
 </div>
 <div class="carousel-item">
-<img src="{% static 'images/ebook.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
-<div class="carousel-caption d-none d-md-block">
-<h2 class="text-white">Электронные книги</h2>
-<h3 class="text-white">{{rab4}}</h3>
-</div>
+<img src="{% static 'images/4.jpg' %}" style="height: 200px;" class="d-block w-100 " alt="image">
 </div>
 </div>
 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -48,22 +32,14 @@
 </div>
 <!-- Конец карусели -->
 <div class="container-fluid">
-<h4 class="text-center">{{ text_head }}</h4>
-<div class="row my-2 text-center">
-<div class="col-5"></div>
-<div class="col-1 text-center">
-<img src="{% static 'images/SIS.jpg' %}">
-</div>
-<div class="col-5"></div>
-</div>
 <div class="row my-2 text-primary text-center">
-<h3>{{ name }}</h3>
+<h3 style="color: #6f2232; font-size: 32px; font-weight: bold;">Сведения о компании</h3>
 </div>
 <div class="row my-2 text-white text-start">
-<div class="col mx-2 my-2 bg-primary">{{rab1}}</div>
-<div class="col mx-2 my-2 bg-primary">{{rab2}}</div>
-<div class="col mx-2 my-2 bg-primary">{{rab3}}</div>
-<div class="col mx-2 my-2 bg-primary">{{rab4}}</div>
+<div class="col mx-2 my-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;">Библиотека также предлагает большой выбор новелл на основе популярных аниме- и манга-сериалов, а также сопутствующую продукцию, такую как постеры, фигурки и аксессуары.</div>
+<div class="col mx-2 my-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;">"Книжный червь" предлагает конкурентоспособные цены и часто проводит распродажи и акции. Компания также предлагает скидки для членов клуба и подписчиков новостной рассылки.</div>
+<div class="col mx-2 my-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;">"Книжный червь" гордится своим отличным обслуживанием клиентов. Компания предлагает круглосуточную поддержку по телефону и электронной почте, а также активна в социальных сетях.</div>
+<div class="col mx-2 my-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;">Библиотека манг "Книжный червь" имеет отличную репутацию за предоставление качественных продуктов и услуг. Компания получила многочисленные положительные отзывы от довольных клиентов.</div>
 </div>
 </div>
 <div class="row my-2 text-center">
@@ -77,14 +53,13 @@
 <div class="accordion-item">
 <h2 class="accordion-header" id="headingOne">
 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-Искусственный интеллект
+Основание и ранние годы
 </button>
 </h2>
 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 <div class="accordion-body">
-<strong>Разработка под ключ.</strong> Разрабатываем
-информационные комплексы на базе систем
-искусственного интеллекта.
+    Библиотека манги "Книжный червь" была основана в 2006 году в Токио, Япония.
+    Основатели, группа студентов-энтузиастов манги, хотели создать пространство, где любители манги могли бы собираться, обмениваться рекомендациями и находить редкие и необычные работы.
 </div>
 </div>
 </div>
@@ -92,14 +67,14 @@
 <div class="accordion-item">
 <h2 class="accordion-header" id="headingTwo">
 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-Дорожная инфраструктура
+Рост и расширение
 </button>
 </h2>
 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 <div class="accordion-body">
-<strong>Системы распознавания.</strong> Разрабатываем системы
-распознавания объектов дорожной инфраструктуры с
-использованием нейронных сетей.
+    Библиотека быстро приобрела популярность среди местных любителей манги и стала местом встреч и мероприятий.
+    В 2008 году библиотека переехала в более просторное здание, чтобы вместить растущую коллекцию и количество посетителей.
+    К 2010 году в коллекции насчитывалось более 100 000 томов манги, охватывающих широкий спектр жанров и эпох.
 </div>
 </div>
 </div>
@@ -107,28 +82,28 @@
 <div class="accordion-item">
 <h2 class="accordion-header" id="headingThree">
 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-Арт объекты
+Признание и международное влияние
 </button>
 </h2>
 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 <div class="accordion-body">
-<strong>Обработка изображений.</strong> Создаем уникальные
-изображения с использованием систем машинного зрения
-и искусственного интеллекта.
+    "Книжный червь" получил широкое признание как ведущая библиотека манги в Японии.
+    Библиотека организовала выставки, лекции и мастер-классы, посвященные истории и культуре манги.
+    В 2012 году "Книжный червь" стал первой японской библиотекой манги, присоединившейся к Международной ассоциации библиотек комиксов и графических романов (ICA).
 </div>
 </div>
 <!-- Аккордеон элемент 4-->
 <div class="accordion-item">
 <h2 class="accordion-header" id="headingFour">
 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-Интерактивные электронные книги
+Текущее состояние
 </button>
 </h2>
 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
 <div class="accordion-body">
-<strong>Интерактивное обучение</strong> Разрабатываем интерактивные
-обучающие пособия, учебники, электронные книги для студентов
-и школьников.
+    "Книжный червь" остается популярным местом встречи любителей манги и ценным ресурсом для исследователей и историков манги.
+    Коллекция библиотеки продолжает расти и в настоящее время насчитывает более 200 000 томов.
+    Библиотека продолжает проводить мероприятия и поддерживать манга-сообщество в Японии и за рубежом.
 </div>
 </div>
 </div>

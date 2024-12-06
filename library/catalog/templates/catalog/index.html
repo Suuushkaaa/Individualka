@@ -4,36 +4,36 @@
 <h5>{{ text_head }}</h5>
 {% endblock header %}
 {% block content%}
-<div class="container-fluid my-2">
-<div class="row bg-success text-white mx-2">
-<div class="col text-center">
-<p>Добро пожаловать на сайт <em>Книжный червь</em>. Это очень
-Простой веб-сайт, написанный на Django и Bootstrap.
+<div class="container-fluid my-2" style="background-color: #1a1a1d;">
+<div class="row text-white mx-2" style="background-color: #1a1a1d;">
+<div class="col text-center" style="background-color: #1a1a1d;">
+<p style="color: #6f2232; font-size: 32px; font-weight: bold;">Добро пожаловать на сайт <em>Книжный червь</em>!</p> 
+<p style="color: #4e4e50; font-size: 22px; font-weight: bold;">Это очень простой веб-сайт, написанный на Django и Bootstrap.
 Разработан на Python в качестве учебного примера с
 использованием VS Code, ибо PyCharm слишком понтовый.</p>
 </div>
 </div>
-<div class="row text-center text-dark lh-2">
-<h4>Сведения из базы данных</h4>
+<div class="row text-dark lh-2">
+<h4 style="color: #6f2232; font-size: 28px; margin-left: 270px; font-weight: bold;">Сведения из базы данных</h4>
 </div>
-<div class="row my-2 text-white">
-<div class="col mx-2 bg-primary">Количество книг –
+<div class="row my-2 text-white" style="text-align: center;">
+<div class="col mx-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 22px; font-weight: bold;">Количество книг –
 {{num_books}}</div>
-<div class="col mx-2 bg-primary">В читальном зале в наличии –
+<div class="col mx-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 22px; font-weight: bold;">В читальном зале в наличии –
 {{num_instances}}</div>
-<div class="col mx-2 bg-primary">Количество авторов –
+<div class="col mx-2" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 22px; font-weight: bold;">Количество авторов –
 {{num_authors}}</div>
 </div>
-<div class="row text-center text-dark lh-2">
-<h3>Книги</h3>
+<div class="row text-dark lh-2" style="margin-top: 50px;">
+<h3 style="color: #6f2232; font-size: 28px; text-align: center; font-weight: bold; font-size: 24px;">Книги</h3>
 </div>
 {% if num_books > 0 %}
 <div class="row my-2">
 {% for obj in books %}
-<div class="card" style="width: 9rem;">
+<div class="card-body"style="width: 9rem; color: #6f2232;">
 <img src="{{ obj.photo.url }}" class="card-img-top">
 <div class="card-body">
-<p class="card-text small">
+<p class="card-text small" style="font-size: 18px; text-align: center;">
 {{obj.title}}
 </p>
 </div>

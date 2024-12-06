@@ -2,16 +2,16 @@
 {% block content %}
 <div class="container text-start">
 <div class="row my-2">
-<h4>{{ object.first_name }} {{author.last_name}}</h4>
-<p>Родился - {{author.date_of_birth}}</p>
-<p>Фото (портрет)</p>
+<h4 style="color: #6f2232; font-size: 20px; font-weight: bold;">{{ object.first_name }} {{author.last_name}}</h4>
+<p style="color: #4e4e50; font-size: 18px; font-weight: bold;">Родился - {{author.date_of_birth}}</p>
+<p style="color: #4e4e50; font-size: 18px; font-weight: bold;">Фото (портрет)</p>
 <p><img src="{{ author.photo.url }}" alt="connect" style="max-height:200px"></p>
 <div class="row my-2">
 <div class="col-2 my-2">
-<a href="{{ author.photo.url}}" class="btn btn-primary" target="_blank"> Показать</a>
+<a href="{{ author.photo.url}}" class="btn" target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #4e4e50; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"> Показать</a>
 </div>
 </div>
-<div class="row my-2">
+<div class="row my-2" style="color: #4e4e50; font-size: 18px; font-weight: bold;">
 {{author.about}}
 </div>
 </div>

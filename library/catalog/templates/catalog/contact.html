@@ -3,19 +3,18 @@
 {% load static %}
 </head>
 {% block content %}
-<div class="container-fluid">
-<div class="row my-2 text-center">
-<div class="col-5"></div>
-<div class="col-1 text-center">
-<img src="{% static 'images/SIS.jpg' %}">
+<div class="container-fluid" style="text-align: center;">
+<div class="row my-2">
+<div style="text-align: center;">
+<img src="{% static 'images/bookk.jpg' %}" style="text-align: center;">
 </div>
 <div class="col-5"></div>
 </div>
 <div class="row my-2 text-primary text-center">
-<h3>{{ name }}</h3>
+<h3 style="color: #6f2232; font-size: 32px; font-weight: bold;">Библиотека "Книжный червь"</h3>
 </div>
 <div class="row my-2 text-muted ">
-<h4 class="text-center">{{ text_head }}</h4>
+<h4 class="text-center" style="color: #6f2232; font-size: 20px; font-weight: bold;">Контакты</h4>
 </div>
 <div class="row my-2">
 <!-- пустые колонки слева от таблицы-->
@@ -24,16 +23,16 @@
 <table class="table table-striped table-bordered text-start">
 <thead>
 <tr>
-<th>Адрес</th>
-<th>Телефон</th>
-<th>e-mail</th>
+<th style="color: #4e4e50; font-size: 20px; font-weight: bold;">Адрес</th>
+<th style="color: #4e4e50; font-size: 20px; font-weight: bold;">Телефон</th>
+<th style="color: #4e4e50; font-size: 20px; font-weight: bold;">e-mail</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>{{ address }}</td>
-<td>{{ tel }}</td>
-<td>{{ email }}</td>
+<td style="color: #4e4e50; font-size: 18px; font-weight: bold;">{{ address }}</td>
+<td style="color: #4e4e50; font-size: 18px; font-weight: bold;">{{ tel }}</td>
+<td style="color: #4e4e50; font-size: 18px; font-weight: bold;">{{ email }}</td>
 </tr>
 <tbody>
 </table>
@@ -43,9 +42,6 @@
 <!-- карта-->
 <div class="row my-2 text-center">
 <div class="col-2"></div>
-<div class="col-8">
-<img src="{% static 'images/address.jpg' %}" class="img-fluid" >
-</div>
 <div class="col-2"></div>
 </div>
 </div>

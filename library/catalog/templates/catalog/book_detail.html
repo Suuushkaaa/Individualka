@@ -2,10 +2,10 @@
 {% block content %}
 <div class="container text-start">
 <div class="row my-2">
-<h1>Название книги - "{{ book.title }}"</h1>
+<h1 style="color: #6f2232; font-size: 32px; font-weight: bold;">Название книги - "{{ book.title }}"</h1>
 </div>
 <div class="row my-2">
-<p><strong>Автор:</strong>
+<p style="color: #4e4e50; font-size: 18px; font-weight: bold;"><strong>Автор:</strong>
 {% for author in book.author.all %}
 <a href="/authors/{{ author.id }}">
     {{ author.first_name }} {{author.last_name}}</a>
@@ -14,32 +14,32 @@
 <img src="{{ book.photo.url }}" alt="connect"
 style="max-height:200px">
 <a href="{{ book.photo.url}}"
-class="btn btn-primary"
-target="_blank"> Показать</a>
+class="btn"
+target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #4e4e50; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"> Показать</a>
 <div class="row my-2">
-<p><strong>Аннотация:</strong> {{ book.summary }}</p>
+<p style="color: #4e4e50; font-size: 18px; font-weight: bold;"><strong>Аннотация:</strong> {{ book.summary }}</p>
 </div>
 <div class="row my-2">
-<div class="col mx-2 bg-primary text-white">
-<p><strong>Жанр:</strong> {{ book.genre }}</p>
+<div class="col mx-2 text-white">
+<p style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;"><strong>Жанр:</strong> {{ book.genre }}</p>
 </div>
-<div class="col mx-2 bg-primary text-white">
-<p><strong>ISBN:</strong> {{ book.isbn }}</p>
+<div class="col mx-2 text-white">
+<p style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;"><strong>ISBN:</strong> {{ book.isbn }}</p>
 </div>
-<div class="col mx-2 bg-primary text-white">
-<p><strong>Язык:</strong> {{ book.language }}</p>
+<div class="col mx-2 text-white">
+<p style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 19px; font-weight: bold;"><strong>Язык:</strong> {{ book.language }}</p>
 </div>
-<div class="col mx-2 bg-primary text-white">
-<p><strong>Издательство:</strong> {{book.publisher}}</p>
+<div class="col mx-2 text-white">
+<p style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 18px; font-weight: bold;"><strong>Издательство:</strong> {{book.publisher}}</p>
 </div>
 </div>
 <div style="margin-left:20px; margin-top:10px">
-<h4>Количество экземпляров книг в БД</h4>
+<h4 style="color: #6f2232; font-size: 28px; font-weight: bold;">Количество экземпляров книг в БД</h4>
 {% for copy in book.bookinstance_set.all %}
 <hr>
-<p class="text-muted">
+<p class="text-muted" style="color: #4e4e50; border: 2px solid #6f2232; border-radius: 5px; font-size: 19px; font-weight: bold;">
 <strong>Инвентарный номер:</strong> {{copy.id}}</p>
-<p class="text-success">
+<p class="text-success" style="font-size: 22px;">
 <strong>Статус экземпляра книги:</strong> {{copy.status}}</p>
 {% endfor %}
 </div>

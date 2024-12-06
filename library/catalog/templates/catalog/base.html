@@ -7,81 +7,182 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body>
-<style>
-    .container-fluid {
-        background-color: #1a1a1d;
-    }
-</style>
-<div class="container-fluid p-1 text-white text-center">
-<div class="row">
-<div class="col-2 text-start">
-<img src="{% static 'images/worm.png' %}" width="130" height="120">
+<body style="background-color: #1a1a1d;">
+
+<header>
+<nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background-color: #1a1a1d; border-bottom: 1px solid #4e4e50 ;">
+    <ul style="list-style: none; display: flex; gap: 30px; margin: 0; padding: 0;">
+    
+        <li>
+            <a href="{% url 'index' %}" class="link"
+                style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">
+                Главная
+                </a>
+        </li>
+        <li>
+            <a href="{% url 'books' %}" class="link" 
+            style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">
+            Все книги
+            <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 4px; background-color: #4e4e50; transition: all 0.3s ease;"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'authors-list' %}" class="link" 
+            style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">
+            Все авторы
+            <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 4px; background-color: #4e4e50; transition: all 0.3s ease;"></span>
+            </a>
+        </li>
+    </ul>
+
+
+    <div>
+  <img src="{% static 'images/worm.png' %}" width="100" height="90" style="margin-left: 120px;">  
+  <div class="logo">
+    Книжный червь
 </div>
-<div class="col-10 ">
-<h3>Книжный червь - печатные и электронные интерактивные книги</h3>
 </div>
-</div>
-</div>
-<div class="container-fluid">
-<div class="row bg-warning text-center">
-<h6>
-<a href="{% url 'index' %}">Главная страница</a>
-<a href="{% url 'about' %}">О компании</a>
-<a href="{% url 'contact' %}">Контакты</a>
-</h6>
-</div>
-</div>
-<div class="container-fluid">
-<div class="row text-center text-primary fs-1 fw-bold">
-<div>{% block header%}
-{% endblock header %}
-</div>
-</div>
-<div class="row text-start text-body">
-<div class="col-2 ">
-{% block sidebar %}
-<nav class="nav flex-column">
-<a class="nav-link" href="{% url 'books' %}">Все книги</a>
-<a class="nav-link" href="{% url 'authors-list' %}">Все авторы</a>
+
+<ul style="list-style: none; display: flex; gap: 30px; margin: 0; padding: 0;">
+    
+    <li style="margin-top: 10px;">
+        <a href="{% url 'about' %}" class="link" 
+        style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">
+        О компании
+        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 4px; background-color: #4e4e50; transition: all 0.3s ease;"></span>
+        </a>
+    </li>
+    <li style="margin-top: 10px;">
+        <a href="{% url 'contact' %}" class="link" 
+        style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">
+        Контакты
+        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 4px; background-color: #4e4e50; transition: all 0.3s ease;"></span>
+        </a>
+    </li>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        {% if user.is_authenticated %}
+        <span style="display: flex; align-items: center; padding: 10px 15px; font-size: 16px; color: #6f2232; font-weight: bold; ">
+            <b style="margin-left: 5px; font-size: 24px;">{{ user.get_username }}</b>
+        </span>
+        <a href="{% url 'logout' %}?next={{ request.path }}" 
+        style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #6f2232; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
+        Выход
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}?next={{ request.path }}" 
+        style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #6f2232; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
+        Вход
+        </a>
+        {% endif %}
+    </div>
+</ul>
+
 </nav>
-{% endblock sidebar %}
-</div>
-<div class="col-10" >
-<div class="row text-center">
-{% block content%}
-{% endblock content %}
-<!-- пагинатор -->
-<div class="pagination">
-<span class="step-links">
-{% if page_obj.paginator.num_pages > 1 %}
-{% if page_obj.has_previous %}
-<a href="?page=1">&laquo; Первая</a>
-<a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-{% endif %}
-<span class="current">
-Стр. {{ page_obj.number }}
-из {{ page_obj.paginator.num_pages }}.
-</span>
-{% if page_obj.has_next %}
-<a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-<a href="?page={{ page_obj.paginator.num_pages }}">Предыдущая &raquo;</a>
-{% endif %}
-{% endif %}
-</span>
-</div>
-<!-- пагинатор -->
-</div>
-</div>
-</div>
-</div>
-<div class="container-fluid">
-<div class="row bg-info text-center text-dark small lh-sm pt-2 my-2">
-{% block footer %}
-<p>Copyright ООО "Интеллектуальные информационные системы",
-2023. Все права защищены</p>
-{% endblock footer%}
-</div>
-</div>
+</header>
+<style>
+    .link {
+  position: relative;
+}
+.link::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #6f2232;
+}
+
+    /* Стили для логотипа */
+    .logo {
+        font-size: 36px;
+        font-weight: bold;
+        margin-left: 30px;
+        background: linear-gradient(90deg, #c3073f, #950740); /* Голубой градиент */
+        -webkit-background-clip: text; /* Показываем градиент только в тексте */
+-webkit-text-fill-color: transparent; /* Делаем фон текста прозрачным */
+position: relative;
+animation: pinkGlow 2s infinite alternate; /* Анимация голубого свечения */
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+cursor: pointer;
+transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.logo:hover {
+
+text-shadow: 0 4px 20px hsl(336, 97%, 36%); /* Эффект свечения */
+}
+
+
+
+/* Основной стиль для ссылок */
+ul li a {
+text-decoration: none;
+color: #6f2232; /* Основной цвет текста */
+font-size: 18px;
+font-weight: 500;
+position: relative;
+padding: 10px 15px;
+border-radius: 8px;
+transition: all 0.3s ease; /* Плавный переход */
+}
+
+/* Эффект при наведении */
+
+/* Основной стиль для ссылок */
+ul li a {
+text-decoration: none;
+color: #6f2232; /* Основной цвет текста */
+font-size: 18px;
+font-weight: 500;
+position: relative;
+padding: 10px 15px;
+border-radius: 8px;
+transition: all 0.3s ease; /* Плавный переход */
+}
+
+/* Голубое свечение при наведении */
+ul li a:hover {
+color: #6f2232; /* Голубой текст */
+background-color: #4e4e50; /* Светло-голубой фон */
+box-shadow: 0 4px 20px hsl(336, 97%, 36%); /* Голубое свечение */
+
+transition: all 0.3s ease; /* Плавный переход */
+}
+
+/* Стиль линии подчеркивания */
+ul li a span {
+position: absolute;
+bottom: 0; /* Линия внизу кнопки */
+left: 0;
+width: 0; /* Начальная ширина линии — 0 */
+height: 5px; /* Толщина линии */
+background-color: #0a73ff; /* Голубой цвет подчеркивания */
+transition: width 0.3s ease; /* Плавное появление */
+}
+
+/* Анимация подчеркивания при наведении */
+ul li a:hover span {
+width: 100%; /* Линия растягивается на всю ширину */
+}
+
+/* Эффект при нажатии */
+ul li a:active {
+transform: scale(0.93); /* Легкое уменьшение размера */
+box-shadow: 0 0 10px 3px rgba(10, 115, 255, 0.5); /* Голубое свечение меньшего размера */
+transition: transform 0.1s ease, box-shadow 0.1s ease; /* Быстрая анимация */
+}
+</style>
+<main>
+    {% block content %}
+    <!-- Содержимое страницы -->
+    {% endblock %}
+</main>
+
+<footer bg-success text-light class="text-center py-2"> 
+    <p style="color: #4e4e50; font-size: 18px; font-weight: bold;">© 2024 Книжный червь.</p> 
+</footer>
+
 </body>
 </html>
