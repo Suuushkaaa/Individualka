@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import Book, Author, BookInstance
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 
@@ -86,3 +89,7 @@ def contact(request):
     # передача словаря context с данными в шаблон
     return render(request, 'catalog/contact.html', context)
 
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"

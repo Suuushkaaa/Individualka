@@ -33,7 +33,7 @@
             <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 4px; background-color: #4e4e50; transition: all 0.3s ease;"></span>
             </a>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'my-borrowed'%}">Мои заказы</a></li>
+            <li><a href="{% url 'my-borrowed'%}" class="link" style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease;">Мои книги</a></li>
             {% endif %}
         </li>
     </ul>
@@ -76,8 +76,11 @@
         style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #6f2232; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
         Вход
         </a>
+        <a href="{% url 'signup' %}" style="text-decoration: none; color: #6f2232; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #6f2232; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">Регистрация</a>
         {% endif %}
+        
     </div>
+    
 </ul>
 
 </nav>
