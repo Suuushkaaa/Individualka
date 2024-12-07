@@ -35,9 +35,8 @@
         </li>
     </ul>
 
-
-    <div>
-  <img src="{% static 'images/worm.png' %}" width="100" height="90" style="margin-left: 120px;">  
+    <div style="text-align: center;">
+  <img src="{% static 'images/worm.png' %}" width="100" height="90" style="margin-left: 100px;">  
   <div class="logo">
     Книжный червь
 </div>
@@ -98,7 +97,7 @@
     .logo {
         font-size: 36px;
         font-weight: bold;
-        margin-left: 30px;
+        margin-left: 100px;
         background: linear-gradient(90deg, #c3073f, #950740); /* Голубой градиент */
         -webkit-background-clip: text; /* Показываем градиент только в тексте */
 -webkit-text-fill-color: transparent; /* Делаем фон текста прозрачным */
@@ -174,23 +173,23 @@ box-shadow: 0 0 10px 3px rgba(10, 115, 255, 0.5); /* Голубое свечен
 transition: transform 0.1s ease, box-shadow 0.1s ease; /* Быстрая анимация */
 }
 </style>
-<main>
+<main style="text-align: center;">
     {% block content %}
     <!-- Содержимое страницы -->
     {% endblock %}
-    <div class="pagination">
-        <span class="step-links">
+    <div class="pagination" style="text-align: center;">
+        <span class="step-links" style="text-align: center;">
         {% if page_obj.paginator.num_pages > 1 %}
             {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; Первая</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            <a href="?page=1" style="color: #4e4e50; font-size: 18px; font-weight: bold;">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}" style="color: #4e4e50; font-size: 18px; font-weight: bold;">Предыдущая</a>
             {% endif %}
-            <span class="current">
+            <span class="current" style="color: #4e4e50; font-size: 18px; font-weight: bold;">
             Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
             </span>
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Предыдущая &raquo;</a>
+            <a href="?page={{ page_obj.next_page_number }}" style="color: #4e4e50; font-size: 18px; font-weight: bold;">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" style="color: #4e4e50; font-size: 18px; font-weight: bold;">Предыдущая &raquo;</a>
             {% endif %}
         {% endif %}
             </span>
