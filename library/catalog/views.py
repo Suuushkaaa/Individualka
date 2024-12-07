@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book, Author, BookInstance
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -45,6 +46,15 @@ class AuthorListView(ListView):
 
 class AuthorDetailView(DetailView):
     model = Author
+
+class LoanedBooksByUserListView(LoginRequiredMixin, ListView):
+
+    model = BookInstance
+    template_name = 'catalog/borrowed.html'
+    paginate_by = 10
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).order_by('due_back')
+
 
 def about(request):
     text_head = 'Сведения о компании'

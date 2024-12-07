@@ -29,14 +29,16 @@ class BookAdmin(admin.ModelAdmin):
     
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
+    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
     list_filter = ('book', 'status')
     fieldsets = (
         ('Экземпляр книги', {
             'fields': ('book', 'inv_nom')}),
             ('Статус и окончание его действия', {
-                'fields': ('status', 'due_back')}),
+                'fields': ('status', 'due_back', 'borrower')}),
     )
-
+def my_queryset(self, request):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='2').order_by('due_back')
 # admin.site.register(Author)
 # admin.site.register(Book)
 admin.site.register(Genre)
