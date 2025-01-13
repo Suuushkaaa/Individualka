@@ -16,6 +16,13 @@ style="max-height:200px">
 <a href="{{ book.photo.url}}"
 class="btn"
 target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #4e4e50; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"> Показать</a>
+<!-- <a href="#" class="add-to-cart" data-product-id="{{ product.id }}">
+    <button>Бронь</button>
+</a> -->
+<button class="add-to-cart" data-id="{{ book.id }}">Купить</button>
+<div id="fixed-notification" style="display:none; position:fixed; top:20px; right:20px; background-color:#4CAF50; color:white; padding:15px; border-radius:5px; z-index:1000;">
+    
+</div>
 <div class="row my-2">
 <p style="color: #4e4e50; font-size: 18px; font-weight: bold;"><strong>Аннотация:</strong> {{ book.summary }}</p>
 </div>
@@ -44,4 +51,38 @@ target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; f
 {% endfor %}
 </div>
 </div>
+<script src="scripts.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.add-to-cart').click(function(e) {
+            e.preventDefault(); 
+            var productId = $(this).data('id');
+
+            $.ajax({
+                url: "{% url 'add_to_cart' 0 %}".replace('0', productId), 
+                method: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}' 
+                },
+                success: function(response) {
+                    $('#fixed-notification').text('Товар успешно добавлен в корзину!').fadeIn().delay(2000).fadeOut();
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = 'Произошла ошибка. Попробуйте еще раз.';
+    
+                    if (xhr.status === 404) {
+                        errorMessage = 'Товар не найден.';
+                    } else if (xhr.status === 500) {
+                        errorMessage = 'Ошибка сервера. Попробуйте позже.';
+                    }
+                    
+                    $('#fixed-notification').text(errorMessage).fadeIn().delay(2000).fadeOut();
+                    // $('#fixed-notification').text('Произошла ошибка. Попробуйте еще раз.').fadeIn().delay(2000).fadeOut();
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

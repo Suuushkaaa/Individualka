@@ -68,4 +68,12 @@ class BookInstance(models.Model):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
-    
+
+class Cart(models.Model):
+    products = models.ManyToManyField(Book)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(BookInstance, related_name='items', on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Book, on_delete=models.CASCADE)

@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Book, Author, BookInstance
+from django.shortcuts import render,redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from .models import Book, Author, BookInstance, Cart, CartItem
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+
 
 # Create your views here.
 
@@ -93,3 +94,22 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Book, id=product_id)
+
+    if request.user.is_authenticated:
+        try:
+            cart, created = BookInstance.objects.get_or_create(borrower=request.user)
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+            cart_item.save()
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+    else:
+        cart = request.session.get('cart', [])
+        if product_id not in cart:
+            cart.append(product_id)
+        request.session['cart'] = cart
+    return JsonResponse({'success': True, 'message': 'Товар успешно добавлен в корзину!'})
+
