@@ -6,6 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import BookSerializer
 
 
 # Create your views here.
@@ -113,3 +116,16 @@ def add_to_cart(request, product_id):
         request.session['cart'] = cart
     return JsonResponse({'success': True, 'message': 'Товар успешно добавлен в корзину!'})
 
+class BookView(APIView):
+    def get(self, request):
+        books=Book.objects.all()
+        serializer = BookSerializer(books, many=True)
+        return Response({"books": serializer.data})
+    def post(self, request):
+        book= request.data.get('books')
+        # Create an article from the above data
+        serializer = BookSerializer(data=book)
+        if serializer.is_valid(raise_exception=True):
+            book_saved = serializer.save()
+
+        return Response({"success": "Book '{}' created successfully".format(book_saved.title)})

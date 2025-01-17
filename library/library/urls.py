@@ -24,6 +24,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('', include('catalog.urls')),
     path('admin/', admin.site.urls),
+    path('api/', include('catalog.urls')),
 ]
 
 if settings.DEBUG:

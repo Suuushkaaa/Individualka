@@ -1,5 +1,8 @@
 from django.urls import path, re_path
 from .import views
+from .views import BookView
+
+# app_name = "bookss"
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,4 +15,5 @@ urlpatterns = [
     re_path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
     path("signup/", views.SignUp.as_view(), name="signup"),
     path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('bookss/', BookView.as_view()),
 ]
