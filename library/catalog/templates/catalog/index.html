@@ -31,7 +31,11 @@
 <div class="row my-2">
 {% for obj in books %}
 <div class="card-body"style="width: 9rem; color: #6f2232;">
+{% if obj.photo %}
 <img src="{{ obj.photo.url }}" class="card-img-top">
+{% else %}
+   <p></p>
+{% endif %}
 <div class="card-body">
 <p class="card-text small" style="font-size: 18px; text-align: center;">
 {{obj.title}}

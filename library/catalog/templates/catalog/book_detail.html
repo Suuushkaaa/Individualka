@@ -11,11 +11,15 @@
     {{ author.first_name }} {{author.last_name}}</a>
 {% endfor %}
 </div>
+{% if book.photo %} 
 <img src="{{ book.photo.url }}" alt="connect"
 style="max-height:200px">
 <a href="{{ book.photo.url}}"
 class="btn"
 target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #4e4e50; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"> Показать</a>
+{% else %}
+<p></p>
+{% endif %}
 <!-- <a href="#" class="add-to-cart" data-product-id="{{ product.id }}">
     <button>Бронь</button>
 </a> -->

@@ -9,7 +9,11 @@ from django.views.generic.edit import CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import BookSerializer
-
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.generics import  ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.mixins import ListModelMixin, CreateModelMixin
 
 # Create your views here.
 
@@ -116,16 +120,38 @@ def add_to_cart(request, product_id):
         request.session['cart'] = cart
     return JsonResponse({'success': True, 'message': 'Товар успешно добавлен в корзину!'})
 
-class BookView(APIView):
-    def get(self, request):
-        books=Book.objects.all()
-        serializer = BookSerializer(books, many=True)
-        return Response({"books": serializer.data})
-    def post(self, request):
-        book= request.data.get('books')
-        # Create an article from the above data
-        serializer = BookSerializer(data=book)
-        if serializer.is_valid(raise_exception=True):
-            book_saved = serializer.save()
+# class BookView(APIView):
+#     def get(self, request):
+#         books=Book.objects.all()
+#         serializer = BookSerializer(books, many=True)
+#         return Response({"books": serializer.data})
+#     def post(self, request):
+#         book= request.data.get('books')
+#         # Create an article from the above data
+#         serializer = BookSerializer(data=book)
+#         if serializer.is_valid(raise_exception=True):
+#             book_saved = serializer.save()
+#         return Response({"success": "Book '{}' created successfully".format(book_saved.title)})
+#     def put(self, request, pk):
+#         saved_book = get_object_or_404(Book.objects.all(), pk=pk)
+#         data = request.data.get('books')
+#         serializer = BookSerializer(instance=saved_book, data=data, partial=True)
+#         if serializer.is_valid(raise_exception=True):
+#             book_saved = serializer.save()
+#         return Response({ "success": "Article '{}' updated successfully".format(book_saved.title)})
+#     def delete(self, request, pk):
+#         # Get object with this pk
+#         article = get_object_or_404(Book.objects.all(), pk=pk)
+#         article.delete()
+#         return Response({
+#         "message": "Article with id `{}` has been deleted.".format(pk)}, status=204)
 
-        return Response({"success": "Book '{}' created successfully".format(book_saved.title)})
+class BookView(ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    def perform_create(self, serializer):
+        author = get_object_or_404(Author, id=self.request.data.get('author'))
+        return serializer.save(author=author)
+class SingleBookView(RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer

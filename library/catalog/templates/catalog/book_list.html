@@ -20,9 +20,16 @@
 <td><a href="{{ book.id }}">{{ book.title }} </a></td>
 <td style="color: #4e4e50; font-size: 16px; font-weight: bold;">{{ book.display_author }}</td>
 <td style="color: #4e4e50; font-size: 16px; font-weight: bold;">{{ book.genre }}</td>
-<td><img src="{{ book.photo.url }}" alt="connect"
-style="max-height:100px"></td>
+{% if book.photo %} 
+<td><img src="{{ book.photo.url }}" alt="connect" style="max-height:100px"></td>
+{% else %}
+<p></p>
+{% endif %}
+{% if book.photo %} 
 <td><a href="{{ book.photo.url}}" class="btn " target="_blank" style="text-decoration: none; color: #4e4e50; font-size: 18px; font-weight: bold; padding: 8px 15px; border: 2px solid #4e4e50; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"> Показать</a></td>
+{% else %}
+<p></p>
+{% endif %}
 </tr>
 {% endfor %}
 </tbody>

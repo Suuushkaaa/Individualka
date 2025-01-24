@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from .import views
-from .views import BookView
+from .views import BookView, SingleBookView
 
 # app_name = "bookss"
 
@@ -16,4 +16,6 @@ urlpatterns = [
     path("signup/", views.SignUp.as_view(), name="signup"),
     path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('bookss/', BookView.as_view()),
-]
+# #     path('articles/<int:pk>', BookView.as_view()),
+    path('bookss/<int:pk>', SingleBookView.as_view()),
+ ]
