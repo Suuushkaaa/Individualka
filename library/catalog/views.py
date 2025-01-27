@@ -14,6 +14,8 @@ from rest_framework.response import Response
 from rest_framework.generics import  ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework import viewsets
+
 
 # Create your views here.
 
@@ -146,12 +148,30 @@ def add_to_cart(request, product_id):
 #         return Response({
 #         "message": "Article with id `{}` has been deleted.".format(pk)}, status=204)
 
-class BookView(ListCreateAPIView):
-    queryset = Book.objects.all()
+
+# Django API part2
+
+# class BookView(ListCreateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#     def perform_create(self, serializer):
+#         # author = get_object_or_404(Author, id=self.request.data.get('author'))
+#         return serializer.save()
+# class SingleBookView(RetrieveUpdateDestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+
+# class BookView(viewsets.ViewSet):
+#     def list(self, request):
+#         queryset = Book.objects.all()
+#         serializer = BookSerializer(queryset, many=True)
+#         return Response(serializer.data)
+#     def retrieve(self, request, pk=None):
+#         queryset = Book.objects.all()
+#         user = get_object_or_404(queryset, pk=pk)
+#         serializer = BookSerializer(user)
+#         return Response(serializer.data)
+
+class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
-    def perform_create(self, serializer):
-        author = get_object_or_404(Author, id=self.request.data.get('author'))
-        return serializer.save(author=author)
-class SingleBookView(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
