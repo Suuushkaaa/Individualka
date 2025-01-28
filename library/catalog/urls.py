@@ -2,13 +2,13 @@ from django.urls import path, re_path
 from .import views
 from rest_framework.routers import DefaultRouter
 from rest_framework import routers
-from .views import BookViewSet
+# from .views import BookViewSet
 
 # app_name = "bookss"
 
-router = routers.DefaultRouter()
-router.register(r'bookss', BookViewSet, basename='books')
-urlpatterns = router.urls
+# router = routers.DefaultRouter()
+# router.register(r'bookss', BookViewSet, basename='books')
+# urlpatterns = router.urls
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,6 +26,9 @@ urlpatterns = [
     # path('bookss/<int:pk>', SingleBookView.as_view()),
     # path('bookss/', BookViewSet.as_view({'get': 'list'})),
     # path('bookss/<int:pk>', BookViewSet.as_view({'get': 'retrieve'})),
+
+    
+    path('api/boooks/', views.GetBookInfoView.as_view()),
  ]
 
 

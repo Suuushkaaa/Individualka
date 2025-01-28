@@ -161,6 +161,10 @@ def add_to_cart(request, product_id):
 #     queryset = Book.objects.all()
 #     serializer_class = BookSerializer
 
+
+
+
+
 # class BookView(viewsets.ViewSet):
 #     def list(self, request):
 #         queryset = Book.objects.all()
@@ -172,6 +176,17 @@ def add_to_cart(request, product_id):
 #         serializer = BookSerializer(user)
 #         return Response(serializer.data)
 
-class BookViewSet(viewsets.ModelViewSet):
-    serializer_class = BookSerializer
-    queryset = Book.objects.all()
+# class BookViewSet(viewsets.ModelViewSet):
+#     serializer_class = BookSerializer
+#     queryset = Book.objects.all()
+
+
+
+class GetBookInfoView(APIView):
+    def get(self, request):
+        queryset = Book.objects.all()
+        serializer_for_queryset = BookSerializer(
+            instance=queryset,
+            many=True
+        )
+        return Response(serializer_for_queryset.data)
