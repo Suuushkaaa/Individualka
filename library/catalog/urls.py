@@ -5,6 +5,8 @@ from rest_framework import routers, serializers, viewsets
 from .models import Book
 from django.contrib.auth.models import User
 # from .views import BookViewSet
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 # app_name = "bookss"
 
@@ -48,9 +50,16 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     #psge58 work(json format)
-    path('snippets/', views.snippet_list),
-    path('snippets/<int:pk>/', views.snippet_detail),
+    #page61 with format work
+    # path('snippets/', views.snippet_list),
+    # path('snippets/<int:pk>/', views.snippet_detail),
+
+    #page65 work
+    #page67. 66 work
+    path('snippets/', views.SnippetList.as_view()),
+    path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
  ]
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 
 
