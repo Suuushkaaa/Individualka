@@ -20,7 +20,7 @@ from catalog import views
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
-from rest_framework import routers
+from rest_framework import routers, serializers, viewsets
 
 
 urlpatterns = [
@@ -36,5 +36,5 @@ if settings.DEBUG:
 
 urlpatterns += [ 
     path('accounts/', include('django.contrib.auth.urls')), 
+    path('api-auth/', include('rest_framework.urls')),
 ]
-

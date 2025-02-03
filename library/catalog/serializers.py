@@ -10,7 +10,7 @@ from .models import Book, Author
 #    genre = serializers.CharField()
 #    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all(), many=True)
 #    def create(self, validated_data):
-#     return Book.objects.create(**validated_data)
+#       return Book.objects.create(**validated_data)
 #    def update(self, instance, validated_data):
 #       instance.title = validated_data.get('title', instance.title)
 #       instance.year = validated_data.get('year', instance.year)
@@ -22,6 +22,7 @@ from .models import Book, Author
 #       instance.author = validated_data.get('author_id', instance.author)
 #       instance.save()
 #       return instance
+
 class BookSerializer(serializers.ModelSerializer):
    class Meta:
       model = Book
