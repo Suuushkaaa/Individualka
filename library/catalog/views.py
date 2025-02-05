@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import BookSerializer
+from .serializers import BookSerializer, UserSerializer
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.generics import  ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView
@@ -21,7 +21,10 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http import Http404
+from django.contrib.auth.models import User
 from rest_framework import mixins, generics
+from rest_framework import permissions
+from .permissions import IsOwnerOrReadOnly
 
 
 # Create your views here.
@@ -349,6 +352,16 @@ def add_to_cart(request, product_id):
 class SnippetList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+    permission_classes = [IsOwnerOrReadOnly]
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

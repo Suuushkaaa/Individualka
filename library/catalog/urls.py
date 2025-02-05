@@ -58,6 +58,12 @@ urlpatterns = [
     #page67. 66 work
     path('snippets/', views.SnippetList.as_view()),
     path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    path('users/', views.UserList.as_view()),
+    path('users/<int:pk>/', views.UserDetail.as_view()),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
  ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 

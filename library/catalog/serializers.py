@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book, Author
+from django.contrib.auth.models import User
 # class BookSerializer(serializers.Serializer):
 #    title = serializers.CharField(max_length=200)
 #    year = serializers.CharField(max_length=4)
@@ -24,9 +25,15 @@ from .models import Book, Author
 #       return instance
 
 class BookSerializer(serializers.ModelSerializer):
+   owner = serializers.ReadOnlyField(source='owner.username')
    class Meta:
       model = Book
-      fields = ('id', 'title', 'year', 'isbn', 'summary', 'language', 'publisher', 'genre', 'author')
+      fields = ('id', 'title', 'year', 'isbn', 'summary', 'language', 'publisher', 'genre', 'author', 'owner')
 
 
 
+class UserSerializer(serializers.ModelSerializer):
+   snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+   class Meta:
+      model = User
+      fields = ['id', 'username', 'snippets']

@@ -3,6 +3,12 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 # Create your models here.
+# from pygments.lexers import get_lexer_by_name
+# from pygments.formatters.html import HtmlFormatter
+# from pygments import highlight
+
+
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text=" Введите жанр книги", verbose_name="Жанр книги")
@@ -38,6 +44,13 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text="Введите краткое описание книги", verbose_name="Аннотация книги")
     isbn = models.CharField(max_length=13, help_text="Должно содержать 13 символов", verbose_name="ISBN книги")
     photo = models.ImageField(upload_to='images', help_text="Введите изображение обложки", verbose_name="Изображение обложки", null=True, blank=True)
+
+
+    owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE, null=True)
+
+
+
+
     
     def __str__(self):
         return self.title
