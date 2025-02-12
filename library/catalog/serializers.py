@@ -25,7 +25,7 @@ from django.contrib.auth.models import User
 #       return instance
 
 class BookSerializer(serializers.ModelSerializer):
-   owner = serializers.ReadOnlyField(source='owner.username')
+   # owner = serializers.ReadOnlyField(source='owner.username')
    class Meta:
       model = Book
       fields = ('id', 'title', 'year', 'isbn', 'summary', 'language', 'publisher', 'genre', 'author', 'owner')
@@ -33,7 +33,7 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-   snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+   # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
    class Meta:
       model = User
-      fields = ['id', 'username', 'snippets']
+      fields = ['id', 'username']

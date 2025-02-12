@@ -6,7 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import BookSerializer, UserSerializer
 from rest_framework.generics import get_object_or_404
@@ -25,7 +24,8 @@ from django.contrib.auth.models import User
 from rest_framework import mixins, generics
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
-
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 
 # Create your views here.
 
@@ -352,8 +352,8 @@ def add_to_cart(request, product_id):
 class SnippetList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
     permission_classes = [IsOwnerOrReadOnly]
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
@@ -362,6 +362,18 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
+    # permission_classes = [IsOwnerOrReadOnly]
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+'users': reverse('user-list', request=request, format=format),
+'snippets': reverse('snippet-list', request=request, format=format)
+})
