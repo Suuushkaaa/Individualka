@@ -26,6 +26,8 @@ from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
+from rest_framework import renderers
+from rest_framework.decorators import action
 
 # Create your views here.
 
@@ -349,27 +351,27 @@ def add_to_cart(request, product_id):
 
 
 #РАБОТАЕТ
-class SnippetList(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
-    permission_classes = [IsOwnerOrReadOnly]
-class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
-    # permission_classes = [IsOwnerOrReadOnly]
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+# class SnippetList(generics.ListCreateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#     # def perform_create(self, serializer):
+#     #     serializer.save(owner=self.request.user)
+#     permission_classes = [IsOwnerOrReadOnly]
+# class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
+# class UserList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
+#     # def perform_create(self, serializer):
+#     #     serializer.save(owner=self.request.user)
+#     # permission_classes = [IsOwnerOrReadOnly]
+# class UserDetail(generics.RetrieveAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -377,3 +379,27 @@ def api_root(request, format=None):
 'users': reverse('user-list', request=request, format=format),
 'snippets': reverse('snippet-list', request=request, format=format)
 })
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `retrieve` actions.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class SnippetViewSet(viewsets.ModelViewSet):
+    """
+    This ViewSet automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    Additionally we also provide an extra `highlight` action.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
