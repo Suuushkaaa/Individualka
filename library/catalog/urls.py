@@ -9,7 +9,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import renderers
 from .views import api_root, SnippetViewSet, UserViewSet
 
+from rest_framework.routers import Route, DynamicRoute, SimpleRouter
 
+
+#НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 snippet_list = SnippetViewSet.as_view({
 'get': 'list',
 'post': 'create'
@@ -20,7 +23,6 @@ snippet_detail = SnippetViewSet.as_view({
 'patch': 'partial_update',
 'delete': 'destroy'
 })
-80
 snippet_highlight = SnippetViewSet.as_view({
 'get': 'highlight'
 }, renderer_classes=[renderers.StaticHTMLRenderer])
@@ -30,6 +32,33 @@ user_list = UserViewSet.as_view({
 user_detail = UserViewSet.as_view({
 'get': 'retrieve'
 })
+
+
+
+
+# class CustomReadOnlyRouter(SimpleRouter):
+#     routes = [
+#     Route(
+#     url=r'^{prefix}$',
+#     mapping={'get': 'list'},
+#     name='{basename}-list',
+#     detail=False,
+#     initkwargs={'suffix': 'List'}
+#     ),
+#     Route(
+#     url=r'^{prefix}/{lookup}$',
+#     mapping={'get': 'retrieve'},
+#     name='{basename}-detail',
+#     detail=True,
+#     initkwargs={'suffix': 'Detail'}
+#     ),
+#     DynamicRoute(
+#     url=r'^{prefix}/{lookup}/{url_path}$',
+#     name='{basename}-{url_name}',
+#     detail=True,
+#     initkwargs={}
+#     )
+#     ]
 
 
 # app_name = "bookss"
@@ -80,7 +109,7 @@ urlpatterns = [
 
     #page65 work
     #page67. 66 work
-    path('api/', api_root),
+
     # path('snippets/', views.SnippetList.as_view()),
     # path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
     # path('snippets/<int:pk>/highlight/', snippet_highlight, name='snippet-highlight'),
@@ -88,6 +117,9 @@ urlpatterns = [
 
     # path('users/', views.UserList.as_view()),
     # path('users/<int:pk>/', views.UserDetail.as_view()),
+
+    #НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    path('api/', api_root),
     path('snippets/', snippet_list, name='snippet-list'),
     path('snippets/<int:pk>/', snippet_detail, name='snippet-detail'),
     path('snippets/<int:pk>/highlight/', snippet_highlight, name='snippet-highlight'),
@@ -98,7 +130,10 @@ urlpatterns = [
 
  ]
 urlpatterns = format_suffix_patterns(urlpatterns)
-
+# router = CustomReadOnlyRouter()
+# router.register('users', UserViewSet)
+# urlpatterns = router.urls
+#НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 router = DefaultRouter()
 router.register(r'snippets', views.SnippetViewSet, basename='snippet')
 router.register(r'users', views.UserViewSet, basename='user')

@@ -28,7 +28,6 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework import renderers
 from rest_framework.decorators import action
-
 # Create your views here.
 
 # def index(request):
@@ -373,21 +372,22 @@ def add_to_cart(request, product_id):
 #     serializer_class = UserSerializer
 #     permission_classes = [IsOwnerOrReadOnly]
 
+
+
+
+#НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
 'users': reverse('user-list', request=request, format=format),
 'snippets': reverse('snippet-list', request=request, format=format)
 })
-
-
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 class SnippetViewSet(viewsets.ModelViewSet):
     """
     This ViewSet automatically provides `list`, `create`, `retrieve`,
@@ -403,3 +403,17 @@ class SnippetViewSet(viewsets.ModelViewSet):
         return Response(snippet.highlighted)
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+# class UserViewSet(viewsets.ReadOnlyModelViewSet):
+#     """
+#     A viewset that provides the standard actions
+#     """
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     lookup_field = 'username'
+#     @action(detail=True)
+#     def group_names(self, request, pk=None):
+#         user = self.get_object()
+#         groups = user.groups.all()
+#         return Response([group.name for group in groups])
