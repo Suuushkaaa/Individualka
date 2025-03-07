@@ -144,5 +144,13 @@ REST_FRAMEWORK = {
  # or allow read-only access for unauthenticated users.
  'DEFAULT_PERMISSION_CLASSES': [
 #  'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
- ]
+ ],
+ 'DEFAULT_PARSER_CLASSES': [
+# 'rest_framework_yaml.parsers.YAMLParser',
+# 'rest_framework_xml.parsers.XMLParser',
+],
+'DEFAULT_RENDERER_CLASSES': [
+# 'rest_framework_yaml.renderers.YAMLRenderer',
+# 'rest_framework_xml.renderers.XMLRenderer',
+],
 }

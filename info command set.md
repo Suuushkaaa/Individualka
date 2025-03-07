@@ -18,6 +18,23 @@ python -m venv .venv
 py -3 -m venv .venv
 ```
 
+python -m venv .venv
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+.venv\Scripts\Activate.ps1
+
+pip install Pillow
+
+pip install django-cleanup
+
+pip install djangorestframework
+
+cd library
+
+python manage.py runserver
+
+
 Activating venv python [mac].
 
 ```sh
