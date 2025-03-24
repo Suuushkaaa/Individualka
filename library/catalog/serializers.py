@@ -28,7 +28,7 @@ class BookSerializer(serializers.ModelSerializer):
    # owner = serializers.ReadOnlyField(source='owner.username')
    class Meta:
       model = Book
-      fields = ('id', 'title', 'year', 'isbn', 'summary', 'language', 'publisher', 'genre', 'author', 'owner')
+      fields = ('id', 'title', 'year', 'isbn', 'summary', 'language', 'publisher', 'genre', 'author')
 
 
 

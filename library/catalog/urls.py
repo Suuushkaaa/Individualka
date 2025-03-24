@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # from .views import BookViewSet
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import renderers
-from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, SingleAuthorView, UserSerializer, AuthorViewSet, AuthorViewS
+from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, SingleAuthorView, UserSerializer, AuthorViewSet, AuthorViewS, UserViewSets
 #ssssss
 # from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, AuthorViewSet, UserSerializer
 from rest_framework.routers import Route, DynamicRoute, SimpleRouter
@@ -90,7 +90,9 @@ urlpatterns = [
     path("signup/", views.SignUp.as_view(), name="signup"),
     path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
 
-# #   path('articles/<int:pk>', BookView.as_view()),
+    # path('bb/', BookViewS.as_view()),
+
+    # path('bb/<int:pk>', BookViewS.as_view()),
 
     path('authorss/', AuthorView.as_view()),
     path('authorss/<int:pk>', SingleAuthorView.as_view()),
@@ -141,7 +143,7 @@ urlpatterns = [
  ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 # router = CustomReadOnlyRouter()
-# router.register('users', UserViewSet)
+# router.register('u', UserViewSets)
 # urlpatterns = router.urls
 #НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 router = DefaultRouter()

@@ -133,7 +133,8 @@ def add_to_cart(request, product_id):
         request.session['cart'] = cart
     return JsonResponse({'success': True, 'message': 'Товар успешно добавлен в корзину!'})
 
-# class BookView(APIView):
+#не разобрались
+# class BookViewS(APIView):
 #     def get(self, request):
 #         books=Book.objects.all()
 #         serializer = BookSerializer(books, many=True)
@@ -405,7 +406,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
-# class UserViewSet(viewsets.ReadOnlyModelViewSet):
+# class UserViewSets(viewsets.ReadOnlyModelViewSet):
 #     """
 #     A viewset that provides the standard actions
 #     """
