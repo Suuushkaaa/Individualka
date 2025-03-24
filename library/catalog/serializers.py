@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author
+from .models import Book, Author, Genre, Language, Publisher, BookInstance
 from django.contrib.auth.models import User
 # class BookSerializer(serializers.Serializer):
 #    title = serializers.CharField(max_length=200)
@@ -36,4 +36,32 @@ class UserSerializer(serializers.ModelSerializer):
    # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
    class Meta:
       model = User
-      fields = ['id', 'username']
+      fields = ('id', 'username')
+
+class GenreSerializer(serializers.ModelSerializer):
+   # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+   class Meta:
+      model = Genre
+      fields = ('id', 'name')
+   
+class LanguageSerializer(serializers.ModelSerializer):
+   # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+   class Meta:
+      model = Language
+      fields = ('id', 'name')
+
+class PublisherSerializer(serializers.ModelSerializer):
+   # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+   class Meta:
+      model = Publisher
+      fields = ('id', 'name')
+
+class AuthorSerializer(serializers.ModelSerializer):
+   class Meta:
+      model = Author
+      fields = ('id', 'first_name', 'last_name', 'date_of_birth', 'about')
+
+class BookInstanceSerializer(serializers.ModelSerializer):
+   class Meta:
+      model = BookInstance
+      fields = ('id', 'book', 'inv_nom', 'status', 'due_back', 'borrower')

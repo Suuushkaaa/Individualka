@@ -7,8 +7,9 @@ from django.contrib.auth.models import User
 # from .views import BookViewSet
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import renderers
-from .views import api_root, SnippetViewSet, UserViewSet
-
+from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, SingleAuthorView, UserSerializer, AuthorViewSet, AuthorViewS
+#ssssss
+# from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, AuthorViewSet, UserSerializer
 from rest_framework.routers import Route, DynamicRoute, SimpleRouter
 
 
@@ -65,16 +66,16 @@ user_detail = UserViewSet.as_view({
 
 
 #РАБОТАЕТ, но 2ой способ лучше(с48стр)
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
+# class UsersSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = User
 #         fields = ['url', 'username', 'is_staff']
-# # ViewSets define the view behavior.
-# class UserViewSet(viewsets.ModelViewSet):
+# ViewSets define the view behavior.
+# class UsersViewSet(viewsets.ModelViewSet):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
 # router = routers.DefaultRouter()
-# router.register(r'users', UserViewSet)
+# router.register(r'us', UsersViewSet)
 
 
 urlpatterns = [
@@ -88,14 +89,19 @@ urlpatterns = [
     re_path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
     path("signup/", views.SignUp.as_view(), name="signup"),
     path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    # path('bookss/', BookView.as_view()),
+
 # #   path('articles/<int:pk>', BookView.as_view()),
-    # path('bookss/<int:pk>', SingleBookView.as_view()),
-    # path('bookss/', BookViewSet.as_view({'get': 'list'})),
-    # path('bookss/<int:pk>', BookViewSet.as_view({'get': 'retrieve'})),
+
+    path('authorss/', AuthorView.as_view()),
+    path('authorss/<int:pk>', SingleAuthorView.as_view()),
+
+    #ssssss
+    path('aut/', AuthorViewS.as_view({'get': 'list'})),
+    path('aut/<int:pk>', AuthorViewSet.as_view({'get': 'retrieve'})),
+
 
     
-    # path('api/boooks/', views.GetBookInfoView.as_view()),
+    path('gena/', views.GenreInfoView.as_view()),
     
     
     
@@ -104,19 +110,23 @@ urlpatterns = [
 
     #psge58 work(json format)
     #page61 with format work
-    # path('snippets/', views.snippet_list),
-    # path('snippets/<int:pk>/', views.snippet_detail),
+    path('genres/', views.genre_list),
+    path('genres/<int:pk>/', views.genre_detail),
+    path('pu/', views.publisher_list),
+    path('pu/<int:pk>/', views.publisher_detail),
 
     #page65 work
     #page67. 66 work
 
-    # path('snippets/', views.SnippetList.as_view()),
-    # path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
+    path('languages/', views.LanguageList.as_view()),
+    path('languages/<int:pk>/', views.LanguageDetail.as_view()),
+    path('pubs/', views.PublisherList.as_view()),
+    path('pubs/<int:pk>/', views.PublisherDetail.as_view()),
     # path('snippets/<int:pk>/highlight/', snippet_highlight, name='snippet-highlight'),
     # # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    # path('users/', views.UserList.as_view()),
-    # path('users/<int:pk>/', views.UserDetail.as_view()),
+    path('inst/', views.InstanceList.as_view()),
+    path('inst/<int:pk>/', views.InstanceDetail.as_view()),
 
     #НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     path('api/', api_root),
@@ -136,7 +146,7 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 #НАДАfvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 router = DefaultRouter()
 router.register(r'snippets', views.SnippetViewSet, basename='snippet')
-router.register(r'users', views.UserViewSet, basename='user')
+router.register(r'users', views.UserViewSet, basename='users')
 
 # urlpatterns = [
 # path('', include(router.urls)),

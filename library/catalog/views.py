@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from .models import Book, Author, BookInstance, Cart, CartItem
+from .models import Book, Author, BookInstance, Cart, CartItem, Genre, Language, Publisher
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from rest_framework.views import APIView
-from .serializers import BookSerializer, UserSerializer
+from .serializers import BookSerializer, UserSerializer, AuthorSerializer, GenreSerializer, LanguageSerializer, PublisherSerializer, BookInstanceSerializer
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.generics import  ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView
@@ -162,204 +162,204 @@ def add_to_cart(request, product_id):
 
 # Django API part2
 
-# class BookView(ListCreateAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     def perform_create(self, serializer):
-#         # author = get_object_or_404(Author, id=self.request.data.get('author'))
-#         return serializer.save()
-# class SingleBookView(RetrieveUpdateDestroyAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
+class AuthorView(ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    def perform_create(self, serializer):
+        # author = get_object_or_404(Author, id=self.request.data.get('author'))
+        return serializer.save()
+class SingleAuthorView(RetrieveUpdateDestroyAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
 
 
 
+#ssssss
+class AuthorViewS(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Author.objects.all()
+        serializer = AuthorSerializer(queryset, many=True)
+        return Response(serializer.data)
+    def retrieve(self, request, pk=None):
+        queryset = Author.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = AuthorSerializer(user)
+        return Response(serializer.data)
 
-# class BookView(viewsets.ViewSet):
-#     def list(self, request):
-#         queryset = Book.objects.all()
-#         serializer = BookSerializer(queryset, many=True)
-#         return Response(serializer.data)
-#     def retrieve(self, request, pk=None):
-#         queryset = Book.objects.all()
-#         user = get_object_or_404(queryset, pk=pk)
-#         serializer = BookSerializer(user)
-#         return Response(serializer.data)
-
-# class BookViewSet(viewsets.ModelViewSet):
-#     serializer_class = BookSerializer
-#     queryset = Book.objects.all()
+class AuthorViewSet(viewsets.ModelViewSet):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
 
 
 
-# class GetBookInfoView(APIView):
-#     def get(self, request):
-#         queryset = Book.objects.all()
-#         serializer_for_queryset = BookSerializer(
-#             instance=queryset,
-#             many=True
-#         )
-#         return Response(serializer_for_queryset.data)
+class GenreInfoView(APIView):
+    def get(self, request):
+        queryset = Genre.objects.all()
+        serializer_for_queryset = GenreSerializer(
+            instance=queryset,
+            many=True
+        )
+        return Response(serializer_for_queryset.data)
 
 
 
 #json format
-# @csrf_exempt
-# def snippet_list(request):
-#     """
-#     List all code snippets, or create a new snippet.
-#     """
-#     if request.method == 'GET':
-#         snippets = Book.objects.all()
-#         serializer = BookSerializer(snippets, many=True)
-#         return JsonResponse(serializer.data, safe=False)
-#     elif request.method == 'POST':
-#         data = JSONParser().parse(request)
-#         serializer = BookSerializer(data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JsonResponse(serializer.data, status=201)
-#     return JsonResponse(serializer.errors, status=400)
+@csrf_exempt
+def publisher_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        snippets = Publisher.objects.all()
+        serializer = PublisherSerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PublisherSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+    return JsonResponse(serializer.errors, status=400)
 
 
-# @csrf_exempt
-# def snippet_detail(request, pk):
-#     """
-#     Retrieve, update or delete a code snippet.
-#     """
-#     try:
-#         snippet = Book.objects.get(pk=pk)
-#     except Book.DoesNotExist:
-#         return HttpResponse(status=404)
-#     if request.method == 'GET':
-#         serializer = BookSerializer(snippet)
-#         return JsonResponse(serializer.data)
-#     elif request.method == 'PUT':
-#         data = JSONParser().parse(request)
-#         serializer = BookSerializer(snippet, data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JsonResponse(serializer.data)
-#         return JsonResponse(serializer.errors, status=400)
-#     elif request.method == 'DELETE':
-#         snippet.delete()
-#         return HttpResponse(status=204)
+@csrf_exempt
+def publisher_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Publisher.objects.get(pk=pk)
+    except Publisher.DoesNotExist:
+        return HttpResponse(status=404)
+    if request.method == 'GET':
+        serializer = PublisherSerializer(snippet)
+        return JsonResponse(serializer.data)
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PublisherSerializer(snippet, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return HttpResponse(status=204)
 
 
 #РАБОТАЕТ
-# @api_view(['GET', 'POST'])
-# def snippet_list(request, format=None):
-#     """
-#     List all code snippets, or create a new snippet.
-#     """
-#     if request.method == 'GET':
-#         snippets = Book.objects.all()
-#         serializer = BookSerializer(snippets, many=True)
-#         return Response(serializer.data)
-#     elif request.method == 'POST':
-#         serializer = BookSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET', 'POST'])
+def genre_list(request, format=None):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        snippets = Genre.objects.all()
+        serializer = GenreSerializer(snippets, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = GenreSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def snippet_detail(request, pk, format=None):
-#     """
-#     Retrieve, update or delete a code snippet.
-#     """
-#     try:
-#         snippet = Book.objects.get(pk=pk)
-#     except Book.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#     if request.method == 'GET':
-#         serializer = BookSerializer(snippet)
-#         return Response(serializer.data)
-#     elif request.method == 'PUT':
-#         serializer = BookSerializer(snippet, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#     elif request.method == 'DELETE':
-#         snippet.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
-#РФБОТАЕТ
-# class SnippetList(APIView):
-#     """
-#     List all snippets, or create a new snippet.
-#     """
-#     def get(self, request, format=None):
-#         snippets = Book.objects.all()
-#         serializer = BookSerializer(snippets, many=True)
-#         return Response(serializer.data)
-#     def post(self, request, format=None):
-#         serializer = BookSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class SnippetDetail(APIView):
-#     """
-#     65
-#     Retrieve, update or delete a snippet instance.
-#     """
-#     def get_object(self, pk):
-#         try:
-#             return Book.objects.get(pk=pk)
-#         except Book.DoesNotExist:
-#             raise Http404
-#     def get(self, request, pk, format=None):
-#         snippet = self.get_object(pk)
-#         serializer = BookSerializer(snippet)
-#         return Response(serializer.data)
-#     def put(self, request, pk, format=None):
-#         snippet = self.get_object(pk)
-#         serializer = BookSerializer(snippet, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#     def delete(self, request, pk, format=None):
-#         snippet = self.get_object(pk)
-#         snippet.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
+@api_view(['GET', 'PUT', 'DELETE'])
+def genre_detail(request, pk, format=None):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Genre.objects.get(pk=pk)
+    except Genre.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = GenreSerializer(snippet)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = GenreSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 #РФБОТАЕТ
-# class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
+class LanguageList(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+    def get(self, request, format=None):
+        snippets = Language.objects.all()
+        serializer = LanguageSerializer(snippets, many=True)
+        return Response(serializer.data)
+    def post(self, request, format=None):
+        serializer = LanguageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LanguageDetail(APIView):
+    """
+    65
+    Retrieve, update or delete a snippet instance.
+    """
+    def get_object(self, pk):
+        try:
+            return Language.objects.get(pk=pk)
+        except Language.DoesNotExist:
+            raise Http404
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = LanguageSerializer(snippet)
+        return Response(serializer.data)
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = LanguageSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+#РФБОТАЕТ
+class PublisherList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Publisher.objects.all()
+    serializer_class = PublisherSerializer
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
     
-# class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     def get(self, request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-#     def put(self, request, *args, **kwargs):
-#         return self.update(request, *args, **kwargs)
-#     def delete(self, request, *args, **kwargs):
-#         return self.destroy(request, *args, **kwargs)
+class PublisherDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Publisher.objects.all()
+    serializer_class = PublisherSerializer
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 #РАБОТАЕТ
-# class SnippetList(generics.ListCreateAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     # def perform_create(self, serializer):
-#     #     serializer.save(owner=self.request.user)
-#     permission_classes = [IsOwnerOrReadOnly]
-# class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [IsOwnerOrReadOnly]
+class InstanceList(generics.ListCreateAPIView):
+    queryset = BookInstance.objects.all()
+    serializer_class = BookInstanceSerializer
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
+    permission_classes = [IsOwnerOrReadOnly]
+class InstanceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BookInstance.objects.all()
+    serializer_class = BookInstanceSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 # class UserList(generics.ListAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
