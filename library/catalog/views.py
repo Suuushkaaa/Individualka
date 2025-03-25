@@ -24,10 +24,13 @@ from django.contrib.auth.models import User
 from rest_framework import mixins, generics
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.reverse import reverse
 from rest_framework import renderers
 from rest_framework.decorators import action
+from rest_framework.renderers import JSONRenderer
+from rest_framework.renderers import TemplateHTMLRenderer, StaticHTMLRenderer
+
 # Create your views here.
 
 # def index(request):
@@ -418,3 +421,48 @@ class SnippetViewSet(viewsets.ModelViewSet):
 #         user = self.get_object()
 #         groups = user.groups.all()
 #         return Response([group.name for group in groups])
+
+class UserCountView(APIView):
+    """
+    A view that returns the count of active users in JSON.
+    """
+    renderer_classes = [JSONRenderer]
+    def get(self, request, format=None):
+        user_count = User.objects.filter(is_active=True).count()
+        content = {'user_count': user_count}
+        return Response(content)
+    
+
+    
+# class AuthDetail(generics.RetrieveAPIView):
+#     queryset = Author.objects.all()
+#     renderer_classes = [TemplateHTMLRenderer]
+#     def get(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         return Response({'user': self.object}, template_name='catalog/author_detail.html')
+
+
+# class JPEGRenderer(renderers.BaseRenderer):
+#     media_type = 'images/jpeg'
+#     format = 'jpg'
+#     charset = None
+#     render_style = 'binary'
+#     def render(self, data, accepted_media_type=None, renderer_context=None):
+#         return data
+
+# @api_view(['GET'])
+# @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+# def list_users(request):
+#         queryset = User.objects.filter(is_superuser=False)
+#         if request.accepted_renderer.format == 'html':
+#         # TemplateHTMLRenderer takes a context dict,
+#         # and additionally requires a 'template_name'.
+#         # It does not require serialization.
+#             data = {'users': queryset}
+#             return Response(data, template_name='catalog/author_list.html')
+#     # JSONRenderer requires serialized data as normal.
+#         serializer = UserSerializer(instance=queryset)
+#         data = serializer.data
+#         return Response(data)
+
+

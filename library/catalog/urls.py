@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # from .views import BookViewSet
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import renderers
-from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, SingleAuthorView, UserSerializer, AuthorViewSet, AuthorViewS, UserViewSets
+from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, SingleAuthorView, UserSerializer, AuthorViewSet, AuthorViewS
 #ssssss
 # from .views import api_root, SnippetViewSet, UserViewSet, AuthorView, AuthorViewSet, UserSerializer
 from rest_framework.routers import Route, DynamicRoute, SimpleRouter
@@ -137,6 +137,11 @@ urlpatterns = [
     path('snippets/<int:pk>/highlight/', snippet_highlight, name='snippet-highlight'),
     path('users/', user_list, name='user-list'),
     path('users/<int:pk>/', user_detail, name='user-detail'),
+
+    path('us/',views.UserCountView.as_view() ),
+    # path('aa/<int:pk>/', views.AuthDetail.as_view(), name='author_detail'),
+    # path('m/<int:image_id>/', views.JPEGRenderer, name="image"),
+    path('auu/', views.list_users),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
