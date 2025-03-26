@@ -24,6 +24,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 .venv\Scripts\Activate.ps1
 
+python -m pip install -r requirements.txt
+
+ py -3 -m pip install vboxapi==1.0
+
 pip install Pillow
 
 pip install django-cleanup

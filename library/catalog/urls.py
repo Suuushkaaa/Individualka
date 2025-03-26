@@ -139,6 +139,8 @@ urlpatterns = [
     path('users/<int:pk>/', user_detail, name='user-detail'),
 
     path('us/',views.UserCountView.as_view() ),
+
+    
     # path('aa/<int:pk>/', views.AuthDetail.as_view(), name='author_detail'),
     # path('m/<int:image_id>/', views.JPEGRenderer, name="image"),
     path('auu/', views.list_users),
